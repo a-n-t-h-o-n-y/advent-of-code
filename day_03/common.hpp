@@ -42,7 +42,7 @@ inline auto count_trees(std::istream& input,
 }
 
 /// Reset \p is to the beginning of the stream and return a ref to it.
-auto reset(std::istream& is) -> std::istream&
+inline auto reset(std::istream& is) -> std::istream&
 {
     is.clear();
     is.seekg(0);
