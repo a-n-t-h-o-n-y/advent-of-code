@@ -15,3 +15,6 @@ add_executable(day3.r day_03/ranges.main.cpp)
 
 add_executable(day4.1 day_04/one.main.cpp)
 add_executable(day4.2 day_04/two.main.cpp)
+
+add_executable(day5.1 day_05/one.main.cpp)
+add_executable(day5.2 day_05/two.main.cpp)
