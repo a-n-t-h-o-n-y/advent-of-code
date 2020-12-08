@@ -44,7 +44,7 @@ auto halve_range(auto range, int direction) -> std::pair<int, int>
         return {range.second - half_size + 1, range.second};
 }
 
-auto get_direction(char c) -> int
+inline auto get_direction(char c) -> int
 {
     switch (c) {
         case 'B':
@@ -57,7 +57,7 @@ auto get_direction(char c) -> int
 
 /// Converts binary search instructions into a row, column seat position.
 /** Returns a struct with .row and .column members. */
-auto to_row_column(std::array<char, 10> const& instructions)
+inline auto to_row_column(std::array<char, 10> const& instructions)
 {
     struct Result {
         int row;
@@ -84,7 +84,7 @@ auto to_seat_id(auto position) -> int
 }
 
 /// Finds the largest seat id from the input file
-auto solution_1(std::string const& filename) -> int
+inline auto solution_1(std::string const& filename) -> int
 {
     namespace rv = std::ranges::views;
     auto file    = std::ifstream{filename};
@@ -92,7 +92,7 @@ auto solution_1(std::string const& filename) -> int
     // clang-format off
     return
         std::ranges::max(
-            std::views::all(arrays)
+            rv::all(arrays)
             | rv::transform(to_row_column)
             | rv::transform([](auto rc){ return to_seat_id(rc); })
     );
@@ -100,7 +100,7 @@ auto solution_1(std::string const& filename) -> int
 }
 
 /// Find your seat ID.
-auto solution_2(std::string const& filename) -> int
+inline auto solution_2(std::string const& filename) -> int
 {
     namespace rv = std::ranges::views;
     auto file    = std::ifstream{filename};
@@ -108,7 +108,7 @@ auto solution_2(std::string const& filename) -> int
     auto ids     = std::set<int>{};
     // clang-format off
     std::ranges::copy(
-        std::views::all(arrays)
+        rv::all(arrays)
         | rv::transform(to_row_column)
         | rv::transform([](auto rc){ return to_seat_id(rc); }),
         std::inserter(ids, std::begin(ids))
