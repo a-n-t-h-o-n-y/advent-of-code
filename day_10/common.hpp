@@ -40,7 +40,7 @@ auto solution_1(std::string const& filename) -> int
 /// Return true if the difference is within the 1-3 range
 auto verify(int a, int b) -> bool { return (b - a) <= 3; }
 
-// permutation then verification
+// Recursive solution with memoization.
 auto solution_2(std::string const& filename) -> std::uint64_t
 {
     auto file   = std::ifstream{filename};
