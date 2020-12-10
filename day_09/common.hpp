@@ -62,7 +62,7 @@ inline auto sum_range(std::span<std::uint64_t const> numbers,
 {
     auto begin = 0uL;
     auto end   = begin;
-    auto sum   = std::uint64_t{numbers[0]};
+    auto sum   = numbers[0];
     while (sum != target) {
         if (sum < target) {
             ++end;

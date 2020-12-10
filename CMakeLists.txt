@@ -3,6 +3,10 @@ project(AdventOfCode2020)
 
 add_compile_options(-Wall -Wextra -std=c++20)
 
+add_library(external INTERFACE)
+target_include_directories(external INTERFACE external/)
+link_libraries(external)
+
 add_executable(day1.1 day_01/one.main.cpp)
 add_executable(day1.2 day_01/two.main.cpp)
 
@@ -30,3 +34,6 @@ add_executable(day8.2 day_08/two.main.cpp)
 
 add_executable(day9.1 day_09/one.main.cpp)
 add_executable(day9.2 day_09/two.main.cpp)
+
+add_executable(day10.1 day_10/one.main.cpp)
+add_executable(day10.2 day_10/two.main.cpp)
