@@ -7,3 +7,5 @@ tags
 *.so
 *.out
 *.vim
+input.txt
+!template/input.txt
