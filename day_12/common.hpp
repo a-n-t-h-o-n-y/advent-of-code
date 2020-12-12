@@ -14,7 +14,7 @@ struct Instruction {
     int value;
 };
 
-auto parse(std::istream& is) -> std::vector<Instruction>
+inline auto parse(std::istream& is) -> std::vector<Instruction>
 {
     auto result      = std::vector<Instruction>{};
     auto instruction = Instruction{};
@@ -33,13 +33,13 @@ struct State {
     char direction;  // the ship is facing
 };
 
-auto manhattan_distance(Coordinates a, Coordinates b) -> int
+inline auto manhattan_distance(Coordinates a, Coordinates b) -> int
 {
     return std::abs(b.x - a.x) + std::abs(b.y - a.y);
 }
 
 /// Returns a new direction. E -> N -> W -> S
-auto turn_left(char direction, int degrees) -> char
+inline auto turn_left(char direction, int degrees) -> char
 {
     auto const count = (degrees / 90) % 4;
     for (auto i = 0; i < count; ++i) {
@@ -48,13 +48,14 @@ auto turn_left(char direction, int degrees) -> char
             case 'N': direction = 'W'; break;
             case 'W': direction = 'S'; break;
             case 'S': direction = 'E'; break;
+            default: break;
         }
     }
     return direction;
 }
 
 /// Returns a new direction. E -> S -> W -> N
-auto turn_right(char direction, int degrees) -> char
+inline auto turn_right(char direction, int degrees) -> char
 {
     auto const count = (degrees / 90) % 4;
     for (auto i = 0; i < count; ++i) {
@@ -63,12 +64,13 @@ auto turn_right(char direction, int degrees) -> char
             case 'S': direction = 'W'; break;
             case 'W': direction = 'N'; break;
             case 'N': direction = 'E'; break;
+            default: break;
         }
     }
     return direction;
 }
 
-auto step(Instruction i, State s) -> State
+inline auto step(Instruction i, State s) -> State
 {
     switch (i.direction) {
         case 'N': s.position.y -= i.value; break;
@@ -82,7 +84,7 @@ auto step(Instruction i, State s) -> State
     return s;
 }
 
-auto solution_1(std::string const& filename) -> int
+inline auto solution_1(std::string const& filename) -> int
 {
     auto file         = std::ifstream(filename);
     auto instructions = parse(file);
@@ -107,16 +109,20 @@ struct State2 {
 };
 
 /// Move start towards destination n times
-auto forward(Coordinates start, Waypoint destination, int n) -> Coordinates
+inline auto forward(Coordinates start, Waypoint destination, int n)
+    -> Coordinates
 {
     start.x += destination.x * n;
     start.y += destination.y * n;
     return start;
 }
 
-auto rotate_left_once(Waypoint wp) -> Waypoint { return {wp.y, wp.x * -1}; }
+inline auto rotate_left_once(Waypoint wp) -> Waypoint
+{
+    return {wp.y, wp.x * -1};
+}
 
-auto rotate_left(Waypoint wp, int degrees) -> Waypoint
+inline auto rotate_left(Waypoint wp, int degrees) -> Waypoint
 {
     auto const count = (degrees / 90) % 4;
     for (auto i = 0; i < count; ++i)
@@ -124,9 +130,12 @@ auto rotate_left(Waypoint wp, int degrees) -> Waypoint
     return wp;
 }
 
-auto rotate_right_once(Waypoint wp) -> Waypoint { return {wp.y * -1, wp.x}; }
+inline auto rotate_right_once(Waypoint wp) -> Waypoint
+{
+    return {wp.y * -1, wp.x};
+}
 
-auto rotate_right(Waypoint wp, int degrees) -> Waypoint
+inline auto rotate_right(Waypoint wp, int degrees) -> Waypoint
 {
     auto const count = (degrees / 90) % 4;
     for (auto i = 0; i < count; ++i)
@@ -134,25 +143,27 @@ auto rotate_right(Waypoint wp, int degrees) -> Waypoint
     return wp;
 }
 
-auto step2(Instruction i, State2 s) -> State2
+inline auto step2(Instruction i, State2 s) -> State2
 {
     std::cout << "start: waypoint x: " << s.wp.x << " y: " << s.wp.y << '\n';
-    std::cout << "ship x: " << s.s.position.x << " y: " << s.s.position.y << '\n';
+    std::cout << "ship x: " << s.s.position.x << " y: " << s.s.position.y
+              << '\n';
     switch (i.direction) {
         case 'N': s.wp.y -= i.value; break;
         case 'S': s.wp.y += i.value; break;
         case 'E': s.wp.x += i.value; break;
         case 'W': s.wp.x -= i.value; break;
         case 'L': s.wp = rotate_left(s.wp, i.value); break;
-        case 'R': s.wp = rotate_right(s.wp, i.value);break;
+        case 'R': s.wp = rotate_right(s.wp, i.value); break;
         case 'F': s.s.position = forward(s.s.position, s.wp, i.value); break;
     }
     std::cout << "end: waypoint x: " << s.wp.x << " y: " << s.wp.y << '\n';
-    std::cout << "ship x: " << s.s.position.x << " y: " << s.s.position.y << '\n';
+    std::cout << "ship x: " << s.s.position.x << " y: " << s.s.position.y
+              << '\n';
     return s;
 }
 
-auto solution_2(std::string const& filename) -> int
+inline auto solution_2(std::string const& filename) -> int
 {
     auto file         = std::ifstream(filename);
     auto instructions = parse(file);
