@@ -41,8 +41,8 @@ add_executable(day10.2 day_10/two.main.cpp)
 add_executable(day11.1 day_11/one.main.cpp)
 add_executable(day11.2 day_11/two.main.cpp)
 
-# add_executable(day12.1 day_12/one.main.cpp)
-# add_executable(day12.2 day_12/two.main.cpp)
+add_executable(day12.1 day_12/one.main.cpp)
+add_executable(day12.2 day_12/two.main.cpp)
 
 # add_executable(day13.1 day_13/one.main.cpp)
 # add_executable(day13.2 day_13/two.main.cpp)
